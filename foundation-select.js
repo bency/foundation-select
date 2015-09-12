@@ -8,12 +8,15 @@
       // If custom dropdowns haven't been drawn, build and insert them
       return this.each(function () {
         selectPrompt = '';
+        selectPromptText = '';
         selected = '';
         translateClasses = '';
         select = $(this);
+        totalOptions = select.find('option').not('.disabled').length;
         selectId = select.attr('id') || '';
         multiple = false;
         multiple = select.prop('multiple') ? true : false;
+        selectedTitles = [];
         options = '';
         if (select.data('prompt')) {
           selectPrompt = '<span class="default-label">' + select.data('prompt') + '</span>';
@@ -24,7 +27,13 @@
         select.find('option').each( function () {
           if ($(this).attr('selected')) {
             selected = 'selected';
-            selectPrompt = "<div class='" + $(this).attr('class') + "'>" + $(this).html() + "</div>";
+            selectedTitles.push($(this).html());
+            if (multiple && selectedTitles.length > 2) {
+              selectPromptText = selectedTitles.length + ' of ' + totalOptions + ' selected';
+            }else{
+              selectPromptText = selectedTitles.join(', ');
+            }
+            selectPrompt = "<div class='" + $(this).attr('class') + "'>" + selectPromptText + "</div>";
           }
           if( $(this).attr('class') ) {
             translateClasses = $(this).attr('class') + ' ';
