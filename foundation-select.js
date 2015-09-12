@@ -11,7 +11,7 @@
         selected = '';
         translateClasses = '';
         select = $(this);
-        selectId = select.attr('id');
+        selectId = select.attr('id') || '';
         multiple = false;
         multiple = select.prop('multiple') ? true : false;
         options = '';
