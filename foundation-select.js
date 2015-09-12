@@ -43,7 +43,7 @@
   };
 
   // setup a listener to deal with custom dropdown clicks.
-  $(document).on('click', '.custom-dropdown-area li', function () {
+  $(document).on('click', '.custom-dropdown-area li', function (e) {
     if ($(this).hasClass('disabled')) {
       return false;
     }
@@ -55,6 +55,7 @@
     origDropdown = $(dropdown.data('orig-select'));
     prompt = origDropdown.data('prompt') ? origDropdown.data('prompt') : 'Choose...';
     if (multiple) {
+      e.preventDefault();
       $(this).toggleClass('selected');
       selectedOptions = [];
       selectedTitles = [];
